@@ -10,8 +10,9 @@
     "update-test": "npm run test -- -u",
     "build": "webpack",
     "dev": "webpack-dev-server",
-    "lint": "eslint js/**/*.js server.js",
-    "watch": "webpack --watch"
+    "lint": "eslint js/**/*.js webpack.config.js",
+    "watch": "webpack --watch",
+    "cover": "npm run test -- --coverage"
   },
   "dependencies": {
     "axios": "^0.15.3",

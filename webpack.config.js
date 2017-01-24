@@ -8,6 +8,10 @@ module.exports = {
     path: path.join(__dirname, '/public'),
     filename: 'bundle.js'
   },
+  devServer: {
+    publicPath: '/public/',
+    historyApiFallback: true
+  },
   resolve: {
     extensions: ['.js', '.json']
   },
@@ -19,8 +23,33 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
+        include: path.resolve(__dirname, 'js'),
         test: /\.js$/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        use: [
+          // injects styles into bundle.js
+          'style-loader',
+          // css loader requires a config
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          }
+        ]
       }
     ]
   }
