@@ -1,11 +1,12 @@
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   context: __dirname,
   entry: './js/ClientApp.js',
-  devtool: 'eval',
   output: {
     path: path.join(__dirname, '/public'),
+    publicPath: '/public/',
     filename: 'bundle.js'
   },
   devServer: {
@@ -20,6 +21,13 @@ module.exports = {
     reasons: true,
     chunks: true
   },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: true
+      }
+    })
+  ],
   module: {
     rules: [
       {
@@ -36,20 +44,6 @@ module.exports = {
         include: path.resolve(__dirname, 'js'),
         test: /\.js$/,
         loader: 'babel-loader'
-      },
-      {
-        test: /\.css$/,
-        use: [
-          // injects styles into bundle.js
-          'style-loader',
-          // css loader requires a config
-          {
-            loader: 'css-loader',
-            options: {
-              url: false
-            }
-          }
-        ]
       }
     ]
   }
