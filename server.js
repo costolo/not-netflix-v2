@@ -4,6 +4,8 @@ const express = require('express')
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
 const ReactRouter = require('react-router')
+const h = require('preact')
+const render = require('preact-render-to-string')
 const ServerRouter = ReactRouter.ServerRouter
 const _ = require('lodash')
 const fs = require('fs')
@@ -18,7 +20,17 @@ server.use('/public', express.static('./public'))
 
 server.use((req, res) => {
   const context = ReactRouter.createServerRenderContext()
-  const body = ReactDOMServer.renderToString(
+  // const body = ReactDOMServer.renderToString(
+    // React.createElement(ServerRouter,
+      // {
+        // location: req.url,
+        // context: context
+      // },
+      // React.createElement(App)
+    // )
+  // )
+
+  const body = render(
     React.createElement(ServerRouter,
       {
         location: req.url,

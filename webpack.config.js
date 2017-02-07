@@ -14,6 +14,10 @@ module.exports = {
     historyApiFallback: true
   },
   resolve: {
+    // alias: {
+      // react: 'preact',
+      // 'react-dom': 'preact'
+    // },
     extensions: ['.js', '.json']
   },
   stats: {
@@ -41,7 +45,10 @@ module.exports = {
         loader: 'json-loader'
       },
       {
-        include: path.resolve(__dirname, 'js'),
+        include: [
+          path.resolve(__dirname, 'js'),
+          path.resolve('node_modules/preact/src')
+        ],
         test: /\.js$/,
         loader: 'babel-loader'
       }
